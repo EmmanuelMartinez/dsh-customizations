@@ -1,6 +1,6 @@
 {
   "name": "@deepseek-ai/dsh-customizations-panel",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Customizations settings section (Skills, MCP servers, Rules, balance) plus its Host inventory service.",
   "license": "MIT",
   "type": "module",
