@@ -1,0 +1,14 @@
+# Customizations panel bundle: adds the Settings section together with the Host
+# inventory service it reads through the `customizations` Remote. The package's
+# single row provides the Host service; its ./client is the browser half.
+#
+# If the deployment already ships a Customizations panel, disabling those two
+# rows keeps the service and the Settings section from registering twice; when
+# they are absent the two overrides match nothing and are skipped.
+- insert:
+    - id: customizations-panel
+      name: '@deepseek-ai/dsh-customizations-panel'
+- id: customizations-controller
+  disabled: true
+- id: ui-settings-customizations
+  disabled: true

@@ -1,0 +1,43 @@
+{
+  "name": "@deepseek-ai/dsh-customizations-panel",
+  "version": "1.0.0",
+  "description": "Customizations settings section (Skills, MCP servers, Rules, balance) plus its Host inventory service.",
+  "license": "MIT",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "default": "./lib/client.js"
+    },
+    "./typert": {
+      "default": "./lib/typert.host.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web"
+    }
+  },
+  "files": [
+    "lib/index.js",
+    "lib/client.js",
+    "lib/typert.host.js",
+    "cordis.patch.yml"
+  ],
+  "dependencies": {
+    "zod": "^4.4.3"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "*",
+    "@deepseek-ai/dsh-typert-protocol": "*",
+    "@deepseek-ai/dsh-credentials": "*",
+    "@deepseek-ai/schemastery": "*"
+  }
+}
