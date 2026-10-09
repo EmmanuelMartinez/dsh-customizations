@@ -2,12 +2,21 @@
 # inventory service it reads through the `customizations` Remote. The package's
 # single row provides the Host service; its ./client is the browser half.
 #
+# `projectMcpFile` opts the MCP tab into the workspace's `.agents/mcp.json`, so
+# it lists the servers a project declares. Without it the setting defaults to
+# empty and project MCP servers are never mounted or listed.
+#
 # If the deployment already ships a Customizations panel, disabling those two
 # rows keeps the service and the Settings section from registering twice; when
 # they are absent the two overrides match nothing and are skipped.
 - insert:
     - id: customizations-panel
       name: '@deepseek-ai/dsh-customizations-panel'
+      config:
+        maxSkills: 500
+        maxMcpServers: 100
+        maxMcpTools: 200
+        projectMcpFile: '.agents/mcp.json'
 - id: customizations-controller
   disabled: true
 - id: ui-settings-customizations

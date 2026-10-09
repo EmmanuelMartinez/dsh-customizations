@@ -16,26 +16,37 @@ Un solo paquete con los dos roles:
 
 La cara navegador **auto-monta su Remote** si el build del Desktop no selecciona el namespace `customizations`, así que funciona en versiones que todavía no traen el panel.
 
-El paquete declara `dsh.bundle.patch`; al instalarlo, su patch inserta la fila del Loader que monta ambos roles y desactiva las filas integradas si ya existieran.
+El paquete declara `dsh.bundle.patch`; al instalarlo, su patch inserta la fila del Loader que monta ambos roles (y desactiva las filas integradas si ya existieran).
+
+La fila lleva `projectMcpFile: '.agents/mcp.json'`, así que la pestaña **MCP servers** lee y monta los servidores que declara el workspace de la sesión.
 
 ## Instalar o actualizar
 
 1. Sube los cambios de esta carpeta:
    ```sh
    git add -A
-   git commit -m "customizations panel v1.0.1"
+   git commit -m "customizations panel v1.0.2"
    git remote add origin git@github.com:EmmanuelMartinez/dsh-customizations.git   # solo la primera vez
    git push origin main
-   git tag v1.0.1
-   git push origin v1.0.1
+   git tag v1.0.2
+   git push origin v1.0.2
    ```
 2. En DeepSeek Harness: **Plugins**, desinstala la versión anterior, y en **Add plugin** escribe
    ```
-   github:EmmanuelMartinez/dsh-customizations#v1.0.1
+   github:EmmanuelMartinez/dsh-customizations#v1.0.2
    ```
    Pulsa **Install**. Si el Host pide reiniciar, reinicia la aplicación.
 
 El paquete ya viene compilado (`lib/`), así que **no hay build en la instalación** ni hace falta aprobar scripts con `allowBuilds`. La única dependencia de registro es `zod`.
+
+## MCP servers
+
+La pestaña **MCP servers** lista los servidores que el despliegue monta. Hay dos orígenes:
+
+- **Del proyecto**: el archivo `.agents/mcp.json` del workspace de la sesión (por `projectMcpFile`).
+- **Del panel**: los que agregues con **Add MCP server**; se guardan en `<dshHome>/mcp.json` (`mcpServersFile`).
+
+Sin `projectMcpFile`, el archivo del proyecto se ignora a propósito (el valor por defecto es vacío).
 
 ## Desinstalar
 
@@ -47,7 +58,8 @@ dsh plugin --profile <perfil> remove @deepseek-ai/dsh-customizations-panel
 
 ## Historial
 
-- **v1.0.1** — corrige la carga del panel: el namespace Remote se lee desde el registro de servicios del Cliente (antes fallaba con "cannot get property remote.customizations without inject" y el panel mostraba "temporarily unavailable").
+- **v1.0.2** — la fila del controlador fija `projectMcpFile: '.agents/mcp.json'` para que la pestaña MCP lea los servidores del proyecto.
+- **v1.0.1** — corrige la carga del panel: el namespace Remote se lee desde el registro de servicios del Cliente (antes fallaba con "cannot get property remote.customizations without inject").
 - **v1.0.0** — primera versión instalable.
 
 ## Requisitos y límites
